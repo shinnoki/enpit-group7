@@ -15,6 +15,9 @@ public class TsukurepoMapper extends Mapper<LongWritable, Text, Text, IntWritabl
 	
 	@Override
 	public void map(LongWritable keyIn , Text valuein , Context context) throws IOException , InterruptedException {
+		// 改行後に入ってくるものを無視
+		if (valuein.toString().startsWith("\\n")) return;
+
 		// レシピID ユーザID おすすめコメント オーナーコメント　作成日時 (Tab区切り)
 		String[] line = valuein.toString().split("\t");
 		keyOut.set(line[0]);

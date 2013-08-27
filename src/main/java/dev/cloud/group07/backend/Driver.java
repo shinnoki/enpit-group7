@@ -29,11 +29,11 @@ public class Driver extends Configured implements Tool {
 			return returnCode;
 		}
 		
-		else if("allpair".equals(args[0])) {
+		else if("stukurepo".equals(args[0])) {
 			return runTsukurepoJob(args);
-		} else if("specpair".equals(args[0])) {
+		} else if("process".equals(args[0])) {
 			return runProcessJob(args);
-		} else if("relativity".equals(args[0])) {
+		} else if("property".equals(args[0])) {
 			return runImagePropertyJob(args);
 		}
 		

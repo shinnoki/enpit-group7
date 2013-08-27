@@ -1,7 +1,6 @@
 package dev.cloud.group07.backend;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.NullWritable;

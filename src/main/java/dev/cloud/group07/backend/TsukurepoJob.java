@@ -20,8 +20,8 @@ public class TsukurepoJob extends Job {
 	// ツクレポ入力ファイルのパス (/user/root/rakuten_recipe/recipe_tsukurepo_20120705.txt)
 	private static final Path inputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.TSUKUREPO_FILE_NAME);
 	
-	// HDFS上に出力されるファイル「関連度分母データ」(/user/root/recipe_tsukurepo_20120705.txt)
-	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.IMAGE_SIZE_FILE_NAME);
+	// HDFS上に出力されるファイル「関連度分母データ」(/user/root/tsukurepo_count)
+	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.TSUKUREPO_COUNT_FILE_NAME);
 	
 	public TsukurepoJob() throws IOException{
 		
