@@ -10,7 +10,6 @@ import org.apache.hadoop.mapreduce.Reducer;
 public class TsukurepoReducer extends Reducer<Text, IntWritable, NullWritable, Text> {
 	
 	private static final NullWritable nullWritable = NullWritable.get();
-	
 	private Text valueOut = new Text();
 	
 	@Override
@@ -23,7 +22,7 @@ public class TsukurepoReducer extends Reducer<Text, IntWritable, NullWritable, T
 		}
 
 		// レシピIDとツクレポ数をカンマ区切りで出力する
-		valueOut.set(keyIn.toString()+","+sum);
+		valueOut.set(keyIn.toString() + "," + sum);
 		context.write(nullWritable , valueOut);
 	}
 	

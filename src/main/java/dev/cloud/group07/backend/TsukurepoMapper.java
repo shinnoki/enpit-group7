@@ -10,7 +10,6 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class TsukurepoMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
 	
 	private static final IntWritable one = new IntWritable(1);
-	
 	private Text keyOut = new Text();
 	
 	@Override
