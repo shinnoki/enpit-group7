@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 /**
  * 
  * このモジュールは完成済みです。
@@ -42,19 +42,19 @@ public class Driver extends Configured implements Tool {
 	}
 	
 	public int runAllPairAggregationJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
-		Job allPairJob = new AllPairAggregationJob();
+		Job allPairJob = new TsukurepoJob();
 		
 		return (allPairJob.waitForCompletion(true)) ? 0 : 1;
 	}
 	
 	public int runSpecPairAggregationJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
-		Job specPairJob = new SpecPairAggregationJob();
+		Job specPairJob = new ProcessJob();
 		
 		return (specPairJob.waitForCompletion(true)) ? 0 : 1;
 	}
 	
 	public int runRelativityCalculationJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
-		Job relativityJob = new RelativityCalculationJob();
+		Job relativityJob = new ImagePropertyJob();
 		
 		return (relativityJob.waitForCompletion(true)) ? 0 : 1;
 	}

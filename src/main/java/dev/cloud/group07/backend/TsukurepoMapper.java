@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 // TODO 型パラメータを補完する。
 //　ヒント：FileInputFormat系(TextInputFormatなど)を使用する場合、入力のKeyはLongWritable、ValueはText型である
-public class AllPairAggregationMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
+public class TsukurepoMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
 	
 	private static final IntWritable one = new IntWritable(1);
 	

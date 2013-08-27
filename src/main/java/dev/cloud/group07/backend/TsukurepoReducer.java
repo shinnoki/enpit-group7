@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 // TODO 型パラメータを補完する
 // ヒント：Reducerの入力データのKeyとValueの型は、Mapperの出力KeyとValueの型と一致させる
-public class AllPairAggregationReducer extends Reducer<Text, IntWritable, NullWritable, Text> {
+public class TsukurepoReducer extends Reducer<Text, IntWritable, NullWritable, Text> {
 	
 	private static final NullWritable nullWritable = NullWritable.get();
 	

@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -8,7 +8,7 @@ import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class SpecPairAggregationReducer extends Reducer<Text, IntWritable, NullWritable, Text> { 
+public class ProcessReducer extends Reducer<Text, IntWritable, NullWritable, Text> { 
 
 	private static final NullWritable nullWritable = NullWritable.get();
 	

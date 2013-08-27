@@ -1,4 +1,4 @@
-package com.example.dpap.class04.frontend;
+package dev.cloud.group07.frontend;
 
 
 import java.io.BufferedReader;
@@ -8,14 +8,15 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
-import com.example.dpap.class04.backend.FilePathConstants;
-import com.example.dpap.class04.backend.Driver;
+import dev.cloud.group07.backend.Driver;
+import dev.cloud.group07.backend.FilePathConstants;
 
 
 public class RecommendationFrontend {

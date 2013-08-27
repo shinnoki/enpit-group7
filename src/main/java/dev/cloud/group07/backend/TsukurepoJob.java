@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 
 import java.io.IOException;
 
@@ -15,22 +15,22 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 
-public class AllPairAggregationJob extends Job {
+public class TsukurepoJob extends Job {
 	
-	//HDFS上の入力ファイル「購入ペア」(/user/root/hadoop_exercise/3/data/goods_pair)
-	private static final Path inputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.GOODS_PAIR_FILE_NAME);
+	// ツクレポ入力ファイルのパス (/user/root/rakuten_recipe/recipe_tsukurepo_20120705.txt)
+	private static final Path inputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.TSUKUREPO_FILE_NAME);
 	
 	//HDFS上に出力されるファイル「関連度分母データ」(/user/root/hadoop_exercise/3/data/denomination)
 	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.DENOMINATION_FILE_NAME);
 	
-	public AllPairAggregationJob() throws IOException{
+	public TsukurepoJob() throws IOException{
 		
-			this.setJobName("AllPairAggregationJob");
-			this.setJarByClass(AllPairAggregationJob.class);
+			this.setJobName("TsukurepoJob");
+			this.setJarByClass(TsukurepoJob.class);
 			
 			// TODO ここに、MapperクラスとReducerクラスを設定するロジックを実装する
-			this.setMapperClass(AllPairAggregationMapper.class);
-			this.setReducerClass(AllPairAggregationReducer.class);
+			this.setMapperClass(TsukurepoMapper.class);
+			this.setReducerClass(TsukurepoReducer.class);
 			
 			//　TODO ここに、中間データのKeyとValueの型を設定するロジックを実装する
 			this.setMapOutputKeyClass(Text.class);

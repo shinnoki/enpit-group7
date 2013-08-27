@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 import java.io.IOException;
 
 import org.apache.hadoop.io.DoubleWritable;
@@ -11,7 +11,7 @@ import org.apache.tools.ant.types.FileList.FileName;
 
 
 
-public class RelativityCaclulationMapper extends Mapper<LongWritable , Text , Text , Text> {
+public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Text> {
 	
 	
 	private Writer writer;

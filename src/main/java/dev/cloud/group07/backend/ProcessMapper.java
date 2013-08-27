@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 // TODO 型パラメータを補完する
 // ヒント：Mapperの出力データのKeyとValueの型は、ReducerのKeyとValueの型と一致させる
-public class SpecPairAggregationMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class ProcessMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 	
 	private static final IntWritable one = new IntWritable(1);
 	

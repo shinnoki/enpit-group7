@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 
 import java.io.IOException;
 import java.nio.charset.CharacterCodingException;
@@ -15,19 +15,19 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.mapreduce.lib.partition.HashPartitioner;
 
-public class RelativityCalculationJob  extends Job {
+public class ImagePropertyJob  extends Job {
 	
 		
 	private static final Path denominationtFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.DENOMINATION_FILE_NAME);
 	private static final Path numerationFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.NUMERATOR_FILE_NAME);
 	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.RELATED_GOODS_FILE_NAME);
 
-	public RelativityCalculationJob() throws IOException{
+	public ImagePropertyJob() throws IOException{
 		this.setJobName("RelativityCalculationJob");
-		this.setJarByClass(RelativityCalculationJob.class);
+		this.setJarByClass(ImagePropertyJob.class);
 		
-		this.setMapperClass(RelativityCaclulationMapper.class);
-		this.setReducerClass(RelativityCalculationReducer.class);
+		this.setMapperClass(ImagePropertyMapper.class);
+		this.setReducerClass(ImagePropertyReducer.class);
 		
 		this.setMapOutputKeyClass(Text.class);
 		this.setMapOutputValueClass(Text.class);

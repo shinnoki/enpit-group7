@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -6,7 +6,7 @@ import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class RelativityCalculationReducer extends Reducer<Text, Text, NullWritable, Text> {
+public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text> {
 
 	private static final NullWritable nullWritable = NullWritable.get();
 	
