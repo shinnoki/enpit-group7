@@ -22,41 +22,41 @@ public class Driver extends Configured implements Tool {
 		if(args.length == 0 || "all".equals(args[0])){
 			int returnCode = 0;
 			
-			returnCode |= runAllPairAggregationJob(args);
-			returnCode |= runSpecPairAggregationJob(args);
-			returnCode |= runRelativityCalculationJob(args);
+			returnCode |= runTsukurepoJob(args);
+			returnCode |= runProcessJob(args);
+			returnCode |= runImagePropertyJob(args);
 			
 			return returnCode;
 		}
 		
 		else if("allpair".equals(args[0])) {
-			return runAllPairAggregationJob(args);
+			return runTsukurepoJob(args);
 		} else if("specpair".equals(args[0])) {
-			return runSpecPairAggregationJob(args);
+			return runProcessJob(args);
 		} else if("relativity".equals(args[0])) {
-			return runRelativityCalculationJob(args);
+			return runImagePropertyJob(args);
 		}
 		
 		
 		return -1;
 	}
 	
-	public int runAllPairAggregationJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
-		Job allPairJob = new TsukurepoJob();
+	public int runTsukurepoJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
+		Job tsukurepoJob = new TsukurepoJob();
 		
-		return (allPairJob.waitForCompletion(true)) ? 0 : 1;
+		return (tsukurepoJob.waitForCompletion(true)) ? 0 : 1;
 	}
 	
-	public int runSpecPairAggregationJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
-		Job specPairJob = new ProcessJob();
+	public int runProcessJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
+		Job processJob = new ProcessJob();
 		
-		return (specPairJob.waitForCompletion(true)) ? 0 : 1;
+		return (processJob.waitForCompletion(true)) ? 0 : 1;
 	}
 	
-	public int runRelativityCalculationJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
-		Job relativityJob = new ImagePropertyJob();
+	public int runImagePropertyJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
+		Job imagePropertyJob = new ImagePropertyJob();
 		
-		return (relativityJob.waitForCompletion(true)) ? 0 : 1;
+		return (imagePropertyJob.waitForCompletion(true)) ? 0 : 1;
 	}
 	
 	public static void main(String[] args) throws Exception {

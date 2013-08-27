@@ -18,6 +18,8 @@ public class FilePathConstants {
 
 	// 各ファイルの名前
 	public static final String TSUKUREPO_FILE_NAME = "recipe_tsukurepo_20120705.txt";
+	public static final String IMAGE_SIZE_FILE_NAME = "image_size";
+
 	public static final String GOODS_PAIR_FILE_NAME = "goods_pair";
 	public static final String DENOMINATION_FILE_NAME = "denomination";
 	public static final String NUMERATOR_FILE_NAME = "numerator";
