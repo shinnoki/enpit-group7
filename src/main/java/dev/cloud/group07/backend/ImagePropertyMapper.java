@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 import java.io.IOException;
 
 import org.apache.hadoop.io.DoubleWritable;
@@ -11,17 +11,15 @@ import org.apache.tools.ant.types.FileList.FileName;
 
 
 
-public class RelativityCaclulationMapper extends Mapper<LongWritable , Text , Text , Text> {
-	
-	
+public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Text> {
 	private Writer writer;
 	
 	@Override
 	public void setup(Context context) throws IOException , InterruptedException {
 		String filePath = ((FileSplit)context.getInputSplit()).getPath().toString();
 		
-		if(filePath.indexOf(FilePathConstants.FILE_BASE + "/" + FilePathConstants.DENOMINATION_FILE_NAME) > 0) {
-			writer = new DenominationWriter();
+		if(filePath.indexOf(FilePathConstants.FILE_BASE + "/" + FilePathConstants.TSUKUREPO_COUNT_FILE_NAME) > 0) {
+			writer = new TsukurepoCountWriter();
 		} else if (filePath.indexOf(FilePathConstants.FILE_BASE + "/" + FilePathConstants.NUMERATOR_FILE_NAME) > 0) {
 			writer = new NumeratorWriter();
 		} else {
@@ -41,16 +39,16 @@ public class RelativityCaclulationMapper extends Mapper<LongWritable , Text , Te
 	private interface Writer {
 		public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException;
 	}
-	private class DenominationWriter implements Writer {
-		
+
+	private class TsukurepoCountWriter implements Writer {
 		@Override
 		public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
 			String[] goodsNameAndNum = valueIn.toString().split(",");
 			
 			context.write(new Text(goodsNameAndNum[0] + "#d"), new Text(goodsNameAndNum[1]));
 		}
-		
 	}
+
 	private class NumeratorWriter implements Writer {
 		
 		private Text keyOut = new Text();

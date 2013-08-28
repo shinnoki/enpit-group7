@@ -1,4 +1,4 @@
-package com.example.dpap.class04.backend;
+package dev.cloud.group07.backend;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -8,26 +8,22 @@ import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class SpecPairAggregationReducer extends Reducer<Text, IntWritable, NullWritable, Text> { 
+public class ProcessReducer extends Reducer<Text, IntWritable, NullWritable, Text> { 
 
 	private static final NullWritable nullWritable = NullWritable.get();
-	
 	private Text valueOut = new Text();
 	
 	@Override
 	public void reduce(Text keyIn , Iterable<IntWritable> values , Context context) throws IOException , InterruptedException {
 		
+		// 手順をカウント
 		int sum = 0;
-		Iterator<IntWritable> iterator = values.iterator();
-		
-		//特定の商品のペアの出現回数をカウント
-		while(iterator.hasNext()) {
-			sum += iterator.next().get();
+		for (IntWritable value : values) {
+			sum += value.get();
 		}
 		
+		// レシピIDと手順数をカンマ区切りで出力する
 		valueOut.set(keyIn.toString() + "," + sum);
-		
-		// TODO ここに、空のKeyと、 商品のペアとペアの出現回数がカンマ区切りで記録されたデータがValueとして出力されるロジックを実装する
 		context.write(nullWritable, valueOut);
 	}
 }
