@@ -39,15 +39,15 @@ public class ImagePropertyJob  extends Job {
 		FileInputFormat.addInputPath(this, numerationFile);
 		FileOutputFormat.setOutputPath(this, outputFile);
 		
-		this.setPartitionerClass(RelativityCalculationPartitioner.class);
-		this.setSortComparatorClass(RelativityCalculationSortComparator.class);
-		this.setGroupingComparatorClass(RelativityCalculationGroupComparator.class);
+		this.setPartitionerClass(ImagePropertyPartitioner.class);
+		this.setSortComparatorClass(ImagePropertySortComparator.class);
+		this.setGroupingComparatorClass(ImagePropertyGroupComparator.class);
 		
 		this.setNumReduceTasks(10);
 	}
 		
 	
-	private static class RelativityCalculationPartitioner extends HashPartitioner<Text, Text> {
+	private static class ImagePropertyPartitioner extends HashPartitioner<Text, Text> {
 		
 		@Override
 		public int getPartition(Text key, Text value, int numReduceTasks) {
@@ -55,9 +55,12 @@ public class ImagePropertyJob  extends Job {
 						
 			String strKey = key.toString();
 			
-			if(strKey.endsWith("#d")) {
-				int idx = strKey.lastIndexOf("#d");
+			if(strKey.endsWith("#a")) {
+				int idx = strKey.lastIndexOf("#a");
 				return super.getPartition(new Text(strKey.substring(0 , idx)) , value , numReduceTasks);
+			} else if(strKey.endsWith("#b")) {
+                int idx = strKey.lastIndexOf("#b");
+                return super.getPartition(new Text(strKey.substring(0 , idx)) , value , numReduceTasks);
 			} else {
 				return super.getPartition(key, value, numReduceTasks);
 			}
@@ -66,10 +69,10 @@ public class ImagePropertyJob  extends Job {
 	}
 	
 	
-	private static class RelativityCalculationGroupComparator extends WritableComparator {
+	private static class ImagePropertyGroupComparator extends WritableComparator {
 		
 		
-		public RelativityCalculationGroupComparator() { 
+		public ImagePropertyGroupComparator() { 
 			
 			super(Text.class);
 			
@@ -126,10 +129,10 @@ public class ImagePropertyJob  extends Job {
 	}
 
 	
-	private static class RelativityCalculationSortComparator extends WritableComparator {
+	private static class ImagePropertySortComparator extends WritableComparator {
 		
 		
-		public RelativityCalculationSortComparator() { 
+		public ImagePropertySortComparator() { 
 			
 			super(Text.class);
 			

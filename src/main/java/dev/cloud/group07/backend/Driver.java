@@ -29,7 +29,7 @@ public class Driver extends Configured implements Tool {
 			return returnCode;
 		}
 		
-		else if("stukurepo".equals(args[0])) {
+		else if("tsukurepo".equals(args[0])) {
 			return runTsukurepoJob(args);
 		} else if("process".equals(args[0])) {
 			return runProcessJob(args);

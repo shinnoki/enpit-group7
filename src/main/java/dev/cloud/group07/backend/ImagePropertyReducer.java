@@ -15,13 +15,17 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 	@Override
 	public void reduce(Text keyIn , Iterable<Text> values , Context context) throws IOException , InterruptedException {
 		
-		Iterator<Text> iterator = values.iterator();
-		
-		double denominator = Double.parseDouble(iterator.next().toString());
-		
 		String keyStr = keyIn.toString();
+		String valuesStr = values.toString();
+		valueOut.set(keyStr + "," + valuesStr);
+        context.write(nullWritable, valueOut);
+
+        //Iterator<Text> iterator = values.iterator();
+        //double denominator = Double.parseDouble(iterator.next().toString());
+		/*
 		while(iterator.hasNext()) {
-			String[] numeratorGoodsAndNum = iterator.next().toString().split(",");  
+		    String[] recipeInfo = iterator.next().toString().split(",");			
+					
 			double numerator = Double.parseDouble(numeratorGoodsAndNum[1]);
 			
 			double relativity = numerator/denominator;
@@ -31,5 +35,6 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 				context.write(nullWritable, valueOut);
 			}
 		}
+		*/
 	}	
 }
