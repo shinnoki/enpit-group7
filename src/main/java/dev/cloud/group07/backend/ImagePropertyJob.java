@@ -20,10 +20,11 @@ public class ImagePropertyJob  extends Job {
 		
 	private static final Path tsukurepoFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.TSUKUREPO_COUNT_FILE_NAME);
 	private static final Path processFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.PROCESS_COUNT_FILE_NAME);
+	private static final Path allFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.ALL_FILE_NAME);
 	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.EVALUATION_FILE_NAME);
 
 	public ImagePropertyJob() throws IOException{
-		this.setJobName("RelativityCalculationJob");
+		this.setJobName("ImagePropertyJob");
 		this.setJarByClass(ImagePropertyJob.class);
 		
 		this.setMapperClass(ImagePropertyMapper.class);
@@ -32,11 +33,13 @@ public class ImagePropertyJob  extends Job {
 		this.setMapOutputKeyClass(Text.class);
 		this.setMapOutputValueClass(Text.class);
 		this.setOutputKeyClass(NullWritable.class);
+		this.setOutputValueClass(Text.class);
 		
 		this.setInputFormatClass(TextInputFormat.class);
 		this.setOutputFormatClass(TextOutputFormat.class);
 		FileInputFormat.addInputPath(this, tsukurepoFile);
 		FileInputFormat.addInputPath(this, processFile);
+		FileInputFormat.addInputPath(this, allFile);
 		FileOutputFormat.setOutputPath(this, outputFile);
 		
 		this.setPartitionerClass(ImagePropertyPartitioner.class);
@@ -109,33 +112,29 @@ public class ImagePropertyJob  extends Job {
 			Text left = (Text)a;
 			Text right = (Text)b;
 									
-			if(left.toString().endsWith("#a")) {
+			if(left.toString().matches(".*#(a|b)$") && !right.toString().matches(".*#(a|b)$")) {
 				
 				String leftStr = left.toString();
-				int flagIdx = leftStr.lastIndexOf("#a");
+				int flagIdx = leftStr.lastIndexOf("#");
 				
-				return -new Text(leftStr.substring(0 , flagIdx)).compareTo(right);
+				return -(new Text(leftStr.substring(0 , flagIdx)).compareTo(right));
 				
-			} else if (right.toString().endsWith("#a")) {
-				
-				String rightStr = right.toString();
-				int flagIdx = rightStr.lastIndexOf("#a");
-				
-				return -left.compareTo(new Text(rightStr.substring(0 , flagIdx)));
-			} else if (right.toString().endsWith("#b")) {
+			} else if (!left.toString().matches(".*#(a|b)$") && right.toString().matches(".*#(a|b)$")) {
 				
 				String rightStr = right.toString();
-				int flagIdx = rightStr.lastIndexOf("#b");
+				int flagIdx = rightStr.lastIndexOf("#");
 				
-				return -left.compareTo(new Text(rightStr.substring(0 , flagIdx)));
-			} else if (right.toString().endsWith("#b")) {
+				return -(left.compareTo(new Text(rightStr.substring(0 , flagIdx))));
+			} else if (left.toString().matches(".*#(a|b)$") && right.toString().matches(".*#(a|b)$")) {
 				
+				String leftStr = left.toString();
+				int leftFlagIdx = leftStr.lastIndexOf("#");
 				String rightStr = right.toString();
-				int flagIdx = rightStr.lastIndexOf("#b");
+				int rightFlagIdx = rightStr.lastIndexOf("#");
 				
-				return -left.compareTo(new Text(rightStr.substring(0 , flagIdx)));
+				return -(new Text(leftStr.substring(0 , leftFlagIdx)).compareTo(new Text(rightStr.substring(0 , rightFlagIdx))));
 			} else {
-				return -left.compareTo(right);
+				return -(left.compareTo(right));
 			}
 		}
 	}
