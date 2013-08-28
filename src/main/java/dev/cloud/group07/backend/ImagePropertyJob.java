@@ -18,9 +18,9 @@ import org.apache.hadoop.mapreduce.lib.partition.HashPartitioner;
 public class ImagePropertyJob  extends Job {
 	
 		
-	private static final Path denominationtFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.DENOMINATION_FILE_NAME);
-	private static final Path numerationFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.NUMERATOR_FILE_NAME);
-	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.RELATED_GOODS_FILE_NAME);
+	private static final Path tsukurepoFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.TSUKUREPO_COUNT_FILE_NAME);
+	private static final Path processFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.PROCESS_COUNT_FILE_NAME);
+	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.EVALUATION_FILE_NAME);
 
 	public ImagePropertyJob() throws IOException{
 		this.setJobName("RelativityCalculationJob");
@@ -35,8 +35,8 @@ public class ImagePropertyJob  extends Job {
 		
 		this.setInputFormatClass(TextInputFormat.class);
 		this.setOutputFormatClass(TextOutputFormat.class);
-		FileInputFormat.addInputPath(this, denominationtFile);
-		FileInputFormat.addInputPath(this, numerationFile);
+		FileInputFormat.addInputPath(this, tsukurepoFile);
+		FileInputFormat.addInputPath(this, processFile);
 		FileOutputFormat.setOutputPath(this, outputFile);
 		
 		this.setPartitionerClass(ImagePropertyPartitioner.class);
@@ -109,17 +109,29 @@ public class ImagePropertyJob  extends Job {
 			Text left = (Text)a;
 			Text right = (Text)b;
 									
-			if(left.toString().endsWith("#d")) {
+			if(left.toString().endsWith("#a")) {
 				
 				String leftStr = left.toString();
-				int flagIdx = leftStr.lastIndexOf("#d");
+				int flagIdx = leftStr.lastIndexOf("#a");
 				
 				return -new Text(leftStr.substring(0 , flagIdx)).compareTo(right);
 				
-			} else if (right.toString().endsWith("#d")) {
+			} else if (right.toString().endsWith("#a")) {
 				
 				String rightStr = right.toString();
-				int flagIdx = rightStr.lastIndexOf("#d");
+				int flagIdx = rightStr.lastIndexOf("#a");
+				
+				return -left.compareTo(new Text(rightStr.substring(0 , flagIdx)));
+			} else if (right.toString().endsWith("#b")) {
+				
+				String rightStr = right.toString();
+				int flagIdx = rightStr.lastIndexOf("#b");
+				
+				return -left.compareTo(new Text(rightStr.substring(0 , flagIdx)));
+			} else if (right.toString().endsWith("#b")) {
+				
+				String rightStr = right.toString();
+				int flagIdx = rightStr.lastIndexOf("#b");
 				
 				return -left.compareTo(new Text(rightStr.substring(0 , flagIdx)));
 			} else {
