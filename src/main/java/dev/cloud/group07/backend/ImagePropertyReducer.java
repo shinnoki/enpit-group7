@@ -30,7 +30,6 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 		}
         valueOut.set("{" + keyStr + "," + valuesStr + "},");
         context.write(nullWritable, valueOut);
-
 	}
 	
 	
