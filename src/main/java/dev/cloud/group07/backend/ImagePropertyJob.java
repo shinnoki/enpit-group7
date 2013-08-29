@@ -45,9 +45,13 @@ public class ImagePropertyJob  extends Job {
 		
 		MultipleOutputs.addNamedOutput(this, "pasta",
 				TextOutputFormat.class, NullWritable.class, Text.class);
-		MultipleOutputs.addNamedOutput(this, "japanese",
+		MultipleOutputs.addNamedOutput(this, "curry",
 				TextOutputFormat.class, NullWritable.class, Text.class);
-		MultipleOutputs.addNamedOutput(this, "italian",
+		MultipleOutputs.addNamedOutput(this, "don",
+				TextOutputFormat.class, NullWritable.class, Text.class);
+		MultipleOutputs.addNamedOutput(this, "sushi",
+				TextOutputFormat.class, NullWritable.class, Text.class);
+		MultipleOutputs.addNamedOutput(this, "cake",
 				TextOutputFormat.class, NullWritable.class, Text.class);
 		
 		this.setPartitionerClass(ImagePropertyPartitioner.class);
