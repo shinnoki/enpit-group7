@@ -16,14 +16,19 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 	
 	@Override
 	public void reduce(Text keyIn , Iterable<Text> values , Context context) throws IOException , InterruptedException {
-		
+	    Iterator<Text> iterator = values.iterator();
 		String keyStr = keyIn.toString();
-		String valuesStr = "";
-
-        Iterator<Text> iterator = values.iterator();
+		String valuesStr = ""; 
+        boolean first = true;
 		while(iterator.hasNext()) {
-		    valuesStr += iterator.next().toString();			
+		    if(first){
+		        valuesStr = iterator.next().toString();
+		        first = false;
+		    }else{
+		        valuesStr += "," + iterator.next().toString();
+		    }
 		}
+		System.out.println(keyIn);
         valueOut.set(keyStr + "," + valuesStr);
         context.write(nullWritable, valueOut);
 
