@@ -13,12 +13,16 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 	private static final NullWritable nullWritable = NullWritable.get();	
 	private Text valueOut = new Text();
 	private MultipleOutputs<NullWritable, Text> mos;
-
+	
 	@Override
 	protected void setup(Context context)
 			throws IOException, InterruptedException {
-		context.write(nullWritable, new Text("var obj = ["));
 		mos = new MultipleOutputs<NullWritable, Text>(context);
+		mos.write("pasta", nullWritable, new Text("var obj = ["));
+		mos.write("curry", nullWritable, new Text("var obj = ["));
+		mos.write("don", nullWritable, new Text("var obj = ["));
+		mos.write("sushi", nullWritable, new Text("var obj = ["));
+		mos.write("cake", nullWritable, new Text("var obj = ["));
 		super.setup(context);
 	}
 
@@ -69,8 +73,12 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 	@Override
 	protected void cleanup(Context context)
 			throws IOException, InterruptedException {
+		mos.write("pasta", nullWritable, new Text("];"));
+		mos.write("curry", nullWritable, new Text("];"));
+		mos.write("don", nullWritable, new Text("];"));
+		mos.write("sushi", nullWritable, new Text("];"));
+		mos.write("cake", nullWritable, new Text("];"));
 		mos.close();
-		context.write(nullWritable, new Text("];"));
 		super.cleanup(context);
 	}
 }

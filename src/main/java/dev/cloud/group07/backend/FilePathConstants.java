@@ -22,5 +22,7 @@ public class FilePathConstants {
 	public static final String PROCESS_FILE_NAME = "recipe_process_20120705.txt";
 	public static final String PROCESS_COUNT_FILE_NAME = "process_count";
     public static final String ALL_FILE_NAME = "recipe_all_20120705.txt";
+    public static final String MATERIAL_FILE_NAME = "recipe_material_20120705.txt";
+    public static final String MATERIAL_COUNT_FILE_NAME = "material_count";
     public static final String EVALUATION_FILE_NAME = "evaluation"; // 最終的な結果ファイル
 }

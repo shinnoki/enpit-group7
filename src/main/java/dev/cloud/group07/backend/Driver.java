@@ -24,6 +24,7 @@ public class Driver extends Configured implements Tool {
 			
 			returnCode |= runTsukurepoJob(args);
 			returnCode |= runProcessJob(args);
+			returnCode |= runMaterialJob(args);
 			returnCode |= runImagePropertyJob(args);
 			
 			return returnCode;
@@ -35,6 +36,8 @@ public class Driver extends Configured implements Tool {
 			return runProcessJob(args);
 		} else if("property".equals(args[0])) {
 			return runImagePropertyJob(args);
+		} else if("material".equals(args[0])) {
+			return runMaterialJob(args);
 		}
 		
 		
@@ -57,6 +60,12 @@ public class Driver extends Configured implements Tool {
 		Job imagePropertyJob = new ImagePropertyJob();
 		
 		return (imagePropertyJob.waitForCompletion(true)) ? 0 : 1;
+	}
+	
+	public int runMaterialJob(String[] args) throws IOException , ClassNotFoundException , InterruptedException {
+		Job MaterialJob = new MaterialJob();
+		
+		return (MaterialJob.waitForCompletion(true)) ? 0 : 1;
 	}
 	
 	public static void main(String[] args) throws Exception {

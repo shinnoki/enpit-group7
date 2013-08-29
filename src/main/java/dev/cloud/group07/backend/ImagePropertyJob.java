@@ -22,6 +22,7 @@ public class ImagePropertyJob  extends Job {
 	private static final Path processCountFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.PROCESS_COUNT_FILE_NAME);
 	private static final Path tsukurepoCountFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.TSUKUREPO_COUNT_FILE_NAME);
 	private static final Path recipeAllFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.ALL_FILE_NAME);
+	private static final Path materialFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.MATERIAL_COUNT_FILE_NAME);
 	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.EVALUATION_FILE_NAME);
 
 	public ImagePropertyJob() throws IOException{
@@ -41,6 +42,7 @@ public class ImagePropertyJob  extends Job {
 		FileInputFormat.addInputPath(this, processCountFile);
 		FileInputFormat.addInputPath(this, tsukurepoCountFile);
 		FileInputFormat.addInputPath(this, recipeAllFile);
+		FileInputFormat.addInputPath(this, materialFile);
 		FileOutputFormat.setOutputPath(this, outputFile);
 		
 		MultipleOutputs.addNamedOutput(this, "pasta",
