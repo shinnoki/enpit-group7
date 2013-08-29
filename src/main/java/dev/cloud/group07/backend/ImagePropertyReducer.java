@@ -3,6 +3,8 @@ package dev.cloud.group07.backend;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;

@@ -24,7 +24,7 @@ public class ImagePropertyJob  extends Job {
 	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.EVALUATION_FILE_NAME);
 
 	public ImagePropertyJob() throws IOException{
-		this.setJobName("RelativityCalculationJob");
+		this.setJobName("ImagePropertyJob");
 		this.setJarByClass(ImagePropertyJob.class);
 		
 		this.setMapperClass(ImagePropertyMapper.class);
@@ -33,6 +33,7 @@ public class ImagePropertyJob  extends Job {
 		this.setMapOutputKeyClass(Text.class);
 		this.setMapOutputValueClass(Text.class);
 		this.setOutputKeyClass(NullWritable.class);
+		this.setOutputValueClass(Text.class);
 		
 		this.setInputFormatClass(TextInputFormat.class);
 		this.setOutputFormatClass(TextOutputFormat.class);
@@ -111,21 +112,29 @@ public class ImagePropertyJob  extends Job {
 			Text left = (Text)a;
 			Text right = (Text)b;
 									
-			if(left.toString().endsWith("#d")) {
+			if(left.toString().matches(".*#(a|b)$") && !right.toString().matches(".*#(a|b)$")) {
 				
 				String leftStr = left.toString();
-				int flagIdx = leftStr.lastIndexOf("#d");
+				int flagIdx = leftStr.lastIndexOf("#");
 				
-				return -new Text(leftStr.substring(0 , flagIdx)).compareTo(right);
+				return -(new Text(leftStr.substring(0 , flagIdx)).compareTo(right));
 				
-			} else if (right.toString().endsWith("#d")) {
+			} else if (!left.toString().matches(".*#(a|b)$") && right.toString().matches(".*#(a|b)$")) {
 				
 				String rightStr = right.toString();
-				int flagIdx = rightStr.lastIndexOf("#d");
+				int flagIdx = rightStr.lastIndexOf("#");
 				
-				return -left.compareTo(new Text(rightStr.substring(0 , flagIdx)));
+				return -(left.compareTo(new Text(rightStr.substring(0 , flagIdx))));
+			} else if (left.toString().matches(".*#(a|b)$") && right.toString().matches(".*#(a|b)$")) {
+				
+				String leftStr = left.toString();
+				int leftFlagIdx = leftStr.lastIndexOf("#");
+				String rightStr = right.toString();
+				int rightFlagIdx = rightStr.lastIndexOf("#");
+				
+				return -(new Text(leftStr.substring(0 , leftFlagIdx)).compareTo(new Text(rightStr.substring(0 , rightFlagIdx))));
 			} else {
-				return -left.compareTo(right);
+				return -(left.compareTo(right));
 			}
 		}
 	}
