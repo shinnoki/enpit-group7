@@ -6,8 +6,6 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 
-
-
 public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Text> {
 	private Writer writer;
 	
@@ -29,9 +27,7 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
 	
 	@Override
 	public void map(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
-		
 		writer.write(keyIn, valueIn , context);
-				
 	}
 	
 	
@@ -44,7 +40,18 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
         @Override
         public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
             String[] recipeIDAndReportNum = valueIn.toString().split(",");
-            context.write(new Text(recipeIDAndReportNum[0] + "#a"), new Text(recipeIDAndReportNum[1]));
+            if (Integer.valueOf(recipeIDAndReportNum[1]) > 50) {
+            	recipeIDAndReportNum[1] = "4";
+            } else if (Integer.valueOf(recipeIDAndReportNum[1]) > 10) {
+            	recipeIDAndReportNum[1] = "3";
+            } else if (Integer.valueOf(recipeIDAndReportNum[1]) > 5) {
+            	recipeIDAndReportNum[1] = "2";
+            } else if (Integer.valueOf(recipeIDAndReportNum[1]) > 0) {
+            	recipeIDAndReportNum[1] = "1";
+            } else {
+            	recipeIDAndReportNum[1] = "0";
+            }
+            context.write(new Text(recipeIDAndReportNum[0] + "#a"), new Text("reportNum:\""+recipeIDAndReportNum[1]+"\""));
         }
     }
 
@@ -53,7 +60,7 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
 		@Override
 		public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
 			String[] recipeIDAndStepNum = valueIn.toString().split(",");
-			context.write(new Text(recipeIDAndStepNum[0] + "#b"), new Text(recipeIDAndStepNum[1]));
+			context.write(new Text(recipeIDAndStepNum[0] + "#b"), new Text("stepNum:\""+recipeIDAndStepNum[1]+"\""));
 		}
 	}
 	
@@ -68,9 +75,8 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
         public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
             String[] recipeInfo = valueIn.toString().split("\t");
             keyOut.set(recipeInfo[0]);
-            valueOut.set(recipeInfo[8]+","+recipeInfo[15]+","+recipeInfo[17]);
+            valueOut.set("smallCategory:\""+recipeInfo[4]+"\",imagePath:\""+recipeInfo[8]+"\",jikan:\""+recipeInfo[15]+"\",okane:"+recipeInfo[17]+"\"");
             context.write(keyOut, valueOut);
         }
-        
     }
 }

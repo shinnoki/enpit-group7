@@ -45,7 +45,10 @@ public class ImagePropertyJob  extends Job {
 		
 		MultipleOutputs.addNamedOutput(this, "pasta",
 				TextOutputFormat.class, NullWritable.class, Text.class);
-		
+		MultipleOutputs.addNamedOutput(this, "japanese",
+				TextOutputFormat.class, NullWritable.class, Text.class);
+		MultipleOutputs.addNamedOutput(this, "italian",
+				TextOutputFormat.class, NullWritable.class, Text.class);
 		
 		this.setPartitionerClass(ImagePropertyPartitioner.class);
 		this.setSortComparatorClass(ImagePropertySortComparator.class);
@@ -59,8 +62,6 @@ public class ImagePropertyJob  extends Job {
 		
 		@Override
 		public int getPartition(Text key, Text value, int numReduceTasks) {
-			
-						
 			String strKey = key.toString();
 			
 			if(strKey.endsWith("#a")) {
