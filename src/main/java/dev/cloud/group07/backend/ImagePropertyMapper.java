@@ -47,6 +47,17 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
         @Override
         public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
             String[] recipeIDAndReportNum = valueIn.toString().split(",");
+            if (Integer.valueOf(recipeIDAndReportNum[1]) > 50) {
+            	recipeIDAndReportNum[1] = "4";
+            } else if (Integer.valueOf(recipeIDAndReportNum[1]) > 10) {
+            	recipeIDAndReportNum[1] = "3";
+            } else if (Integer.valueOf(recipeIDAndReportNum[1]) > 5) {
+            	recipeIDAndReportNum[1] = "2";
+            } else if (Integer.valueOf(recipeIDAndReportNum[1]) > 0) {
+            	recipeIDAndReportNum[1] = "1";
+            } else {
+            	recipeIDAndReportNum[1] = "0";
+            }
             context.write(new Text(recipeIDAndReportNum[0] + "#a"), new Text("reportNum:\""+recipeIDAndReportNum[1]+"\""));
         }
     }
