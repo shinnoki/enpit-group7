@@ -52,8 +52,17 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 
         valueOut.set("{" + keyStr + "," + valuesStr + "},");
         // context.write(nullWritable, valueOut);
+
         if (category.contains("パスタ")) {
         	mos.write("pasta", nullWritable, valueOut);
+        } else if (category.contains("カレー")) {
+        	mos.write("curry", nullWritable, valueOut);
+        } else if (category.contains("丼")) {
+        	mos.write("don", nullWritable, valueOut);
+        } else if (category.contains("寿司")) {
+        	mos.write("sushi", nullWritable, valueOut);
+        } else if (category.contains("ケーキ")) {
+        	mos.write("cake", nullWritable, valueOut);
         }
 	}	
 	
