@@ -18,9 +18,10 @@ import org.apache.hadoop.mapreduce.lib.partition.HashPartitioner;
 public class ImagePropertyJob  extends Job {
 	
 		
-	private static final Path denominationtFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.DENOMINATION_FILE_NAME);
-	private static final Path numerationFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.NUMERATOR_FILE_NAME);
-	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.RELATED_GOODS_FILE_NAME);
+	private static final Path processCountFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.PROCESS_COUNT_FILE_NAME);
+	private static final Path tsukurepoCountFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.TSUKUREPO_COUNT_FILE_NAME);
+	private static final Path recipeAllFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.ALL_FILE_NAME);
+	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.EVALUATION_FILE_NAME);
 
 	public ImagePropertyJob() throws IOException{
 		this.setJobName("RelativityCalculationJob");
@@ -35,8 +36,9 @@ public class ImagePropertyJob  extends Job {
 		
 		this.setInputFormatClass(TextInputFormat.class);
 		this.setOutputFormatClass(TextOutputFormat.class);
-		FileInputFormat.addInputPath(this, denominationtFile);
-		FileInputFormat.addInputPath(this, numerationFile);
+		FileInputFormat.addInputPath(this, processCountFile);
+		FileInputFormat.addInputPath(this, tsukurepoCountFile);
+		FileInputFormat.addInputPath(this, recipeAllFile);
 		FileOutputFormat.setOutputPath(this, outputFile);
 		
 		this.setPartitionerClass(ImagePropertyPartitioner.class);

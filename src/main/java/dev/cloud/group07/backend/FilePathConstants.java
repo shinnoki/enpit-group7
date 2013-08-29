@@ -24,6 +24,7 @@ public class FilePathConstants {
     public static final String ALL_FILE_NAME = "recipe_all_20120705.txt";
     public static final String EVALUATION_FILE_NAME = "evaluation"; // 最終的な結果ファイル
 
+    // いらない
 	public static final String GOODS_PAIR_FILE_NAME = "goods_pair";
 	public static final String DENOMINATION_FILE_NAME = "denomination";
 	public static final String NUMERATOR_FILE_NAME = "numerator";

@@ -72,7 +72,7 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
         public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
             String[] recipeInfo = valueIn.toString().split("\t");
             keyOut.set(recipeInfo[0]);
-            valueOut.set(recipeInfo[8]+recipeInfo[15]+recipeInfo[17]);
+            valueOut.set(recipeInfo[8]+","+recipeInfo[15]+","+recipeInfo[17]);
             context.write(keyOut, valueOut);
         }
         
