@@ -75,7 +75,7 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
         public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
             String[] recipeInfo = valueIn.toString().split("\t");
             keyOut.set(recipeInfo[0]);
-            valueOut.set("smallCategory:\""+recipeInfo[4]+"\",imagePath:\""+recipeInfo[8]+"\",jikan:\""+recipeInfo[15]+"\",okane:"+recipeInfo[17]+"\"");
+            valueOut.set("smallCategory:\""+recipeInfo[4]+"\",title:\""+recipeInfo[5]+"\",imagePath:\""+recipeInfo[8]+"\",jikan:\""+recipeInfo[15]+"\",okane:"+recipeInfo[17]+"\"");
             context.write(keyOut, valueOut);
         }
     }
