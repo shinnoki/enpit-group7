@@ -16,12 +16,13 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 	
 	@Override
 	public void reduce(Text keyIn , Iterable<Text> values , Context context) throws IOException , InterruptedException {
-		String keyStr = "ID:";
+		String keyStr = "ID:\"";
 		if (keyIn.toString().matches(".*#(a|b)$")) {
 			keyStr += keyIn.toString().substring(0, keyIn.toString().length()-2);
 		} else {
 			keyStr += keyIn.toString();
 		}
+		keyStr += "\"";
 		String valuesStr = "";
 
         Iterator<Text> iterator = values.iterator();
