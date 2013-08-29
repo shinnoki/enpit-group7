@@ -77,14 +77,14 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
         public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
             String[] recipeInfo = valueIn.toString().split("\t");
             keyOut.set(recipeInfo[0]);
-            valueOut.set("smallCategory:\""+recipeInfo[4]+"\",title:\""+recipeInfo[5]+"\",imagePath:\""+recipeInfo[8]+"\",tags:\""+recipeInfo[10]+" "+recipeInfo[11]+" "+recipeInfo[12]+" "+recipeInfo[13]+"\",jikan:\""+recipeInfo[15]+"\",okane:\""+recipeInfo[17]+"\"");
+            String titleStr = recipeInfo[5].replaceAll("\"", "");
+            String tagStr = (recipeInfo[10]+" "+recipeInfo[11]+" "+recipeInfo[12]+" "+recipeInfo[13]).replaceAll("\"", "");
+            valueOut.set("smallCategory:\""+recipeInfo[4]+"\",title:\""+titleStr+"\",imagePath:\""+recipeInfo[8]+"\",tags:\""+tagStr+"\",jikan:\""+recipeInfo[15]+"\",okane:\""+recipeInfo[17]+"\"");
             context.write(keyOut, valueOut);
         }
     }
     
     private class MaterialWriter implements Writer {
-    	private Text keyOut = new Text();
-        private Text valueOut = new Text();
         
         @Override
         public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
