@@ -2,6 +2,7 @@ package dev.cloud.group07.backend;
 
 import java.io.IOException;
 import java.nio.charset.CharacterCodingException;
+
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
@@ -12,11 +13,11 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.mapreduce.lib.partition.HashPartitioner;
 
 public class ImagePropertyJob  extends Job {
-	
 		
 	private static final Path processCountFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.PROCESS_COUNT_FILE_NAME);
 	private static final Path tsukurepoCountFile = new Path(FilePathConstants.FILE_BASE + "/" + FilePathConstants.TSUKUREPO_COUNT_FILE_NAME);
@@ -41,6 +42,10 @@ public class ImagePropertyJob  extends Job {
 		FileInputFormat.addInputPath(this, tsukurepoCountFile);
 		FileInputFormat.addInputPath(this, recipeAllFile);
 		FileOutputFormat.setOutputPath(this, outputFile);
+		
+		MultipleOutputs.addNamedOutput(this, "pasta",
+				TextOutputFormat.class, NullWritable.class, Text.class);
+		
 		
 		this.setPartitionerClass(ImagePropertyPartitioner.class);
 		this.setSortComparatorClass(ImagePropertySortComparator.class);

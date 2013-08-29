@@ -1,13 +1,10 @@
 package dev.cloud.group07.backend;
 import java.io.IOException;
 
-import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
-import org.apache.tools.ant.types.FileList.FileName;
 
 
 
