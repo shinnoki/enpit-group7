@@ -53,7 +53,7 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
             } else {
             	recipeIDAndReportNum[1] = "0";
             }
-            context.write(new Text(recipeIDAndReportNum[0] + "#a"), new Text("reportNum:\""+recipeIDAndReportNum[1]+"\""));
+            context.write(new Text(recipeIDAndReportNum[0] + "#a"), new Text("\"reportNum\":\""+recipeIDAndReportNum[1]+"\""));
         }
     }
 
@@ -62,7 +62,7 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
 		@Override
 		public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
 			String[] recipeIDAndStepNum = valueIn.toString().split(",");
-			context.write(new Text(recipeIDAndStepNum[0] + "#b"), new Text("stepNum:\""+recipeIDAndStepNum[1]+"\""));
+			context.write(new Text(recipeIDAndStepNum[0] + "#b"), new Text("\"stepNum\":\""+recipeIDAndStepNum[1]+"\""));
 		}
 	}
 	
@@ -79,7 +79,7 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
             keyOut.set(recipeInfo[0]);
             String titleStr = recipeInfo[5].replaceAll("\"", "");
             String tagStr = (recipeInfo[10]+" "+recipeInfo[11]+" "+recipeInfo[12]+" "+recipeInfo[13]).replaceAll("\"", "");
-            valueOut.set("smallCategory:\""+recipeInfo[4]+"\",title:\""+titleStr+"\",imagePath:\""+recipeInfo[8]+"\",tags:\""+tagStr+"\",jikan:\""+recipeInfo[15]+"\",okane:\""+recipeInfo[17]+"\"");
+            valueOut.set("\"smallCategory\":\""+recipeInfo[4]+"\",\"title\":\""+titleStr+"\",\"imagePath\":\""+recipeInfo[8]+"\",\"tags\":\""+tagStr+"\",\"jikan\":\""+recipeInfo[15]+"\",\"okane\":\""+recipeInfo[17]+"\"");
             context.write(keyOut, valueOut);
         }
     }
@@ -89,7 +89,7 @@ public class ImagePropertyMapper extends Mapper<LongWritable , Text , Text , Tex
         @Override
         public void write(LongWritable keyIn , Text valueIn , Context context) throws IOException , InterruptedException {
         	String[] recipeIDAndMaterials = valueIn.toString().split(",");
-			context.write(new Text(recipeIDAndMaterials[0]), new Text("materials:\""+recipeIDAndMaterials[1]+"\""));
+			context.write(new Text(recipeIDAndMaterials[0]), new Text("\"materials\":\""+recipeIDAndMaterials[1]+"\""));
         }
     }
 }

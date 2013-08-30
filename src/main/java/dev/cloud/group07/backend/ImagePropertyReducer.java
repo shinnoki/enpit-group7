@@ -18,17 +18,17 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 	protected void setup(Context context)
 			throws IOException, InterruptedException {
 		mos = new MultipleOutputs<NullWritable, Text>(context);
-		mos.write("pasta", nullWritable, new Text("var obj = ["));
-		mos.write("curry", nullWritable, new Text("var obj = ["));
-		mos.write("don", nullWritable, new Text("var obj = ["));
-		mos.write("sushi", nullWritable, new Text("var obj = ["));
-		mos.write("cake", nullWritable, new Text("var obj = ["));
+		mos.write("pasta", nullWritable, new Text("{ \"data\": ["));
+		mos.write("curry", nullWritable, new Text("{ \"data\": ["));
+		mos.write("don", nullWritable, new Text("{ \"data\": ["));
+		mos.write("sushi", nullWritable, new Text("{ \"data\": ["));
+		mos.write("cake", nullWritable, new Text("{ \"data\": ["));
 		super.setup(context);
 	}
 
 	@Override
 	public void reduce(Text keyIn , Iterable<Text> values , Context context) throws IOException , InterruptedException {
-		String keyStr = "ID:\"";
+		String keyStr = "\"ID\":\"";
 		String category = "";
 
 		if (keyIn.toString().matches(".*#(a|b)$")) {
@@ -39,10 +39,8 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 		keyStr += "\"";
 		String valuesStr = "";
 
-        Iterator<Text> iterator = values.iterator();
-        
         // カテゴリを見つけてくる
-        String categoryPrefix = "smallCategory:";
+        String categoryPrefix = "\"smallCategory\":";
         for (Text value : values) {
         	String[] properties = value.toString().split(",");
         	for (String property : properties) {
@@ -53,9 +51,11 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
         		valuesStr += property + ",";
         	}
         }
+        
+        // 末尾の","を削除
+        valuesStr = valuesStr.substring(0, valuesStr.length()-1);
 
         valueOut.set("{" + keyStr + "," + valuesStr + "},");
-        // context.write(nullWritable, valueOut);
 
         if (category.contains("パスタ")) {
         	mos.write("pasta", nullWritable, valueOut);
@@ -73,11 +73,12 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 	@Override
 	protected void cleanup(Context context)
 			throws IOException, InterruptedException {
-		mos.write("pasta", nullWritable, new Text("];"));
-		mos.write("curry", nullWritable, new Text("];"));
-		mos.write("don", nullWritable, new Text("];"));
-		mos.write("sushi", nullWritable, new Text("];"));
-		mos.write("cake", nullWritable, new Text("];"));
+		// ほんとは末尾の","を消したいけど...
+		mos.write("pasta", nullWritable, new Text("]}"));
+		mos.write("curry", nullWritable, new Text("]}"));
+		mos.write("don", nullWritable, new Text("]}"));
+		mos.write("sushi", nullWritable, new Text("]}"));
+		mos.write("cake", nullWritable, new Text("]}"));
 		mos.close();
 		super.cleanup(context);
 	}
