@@ -1,0 +1,13 @@
+.container {
+	width: 800px;
+	height: 800px;
+
+}
+
+.recipe-item {
+	overflow: hidden;
+}
+
+.recipe-item:hover {
+	z-index: 99;
+}

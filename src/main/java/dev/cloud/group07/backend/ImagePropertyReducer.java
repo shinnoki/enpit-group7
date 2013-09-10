@@ -74,11 +74,11 @@ public class ImagePropertyReducer extends Reducer<Text, Text, NullWritable, Text
 	protected void cleanup(Context context)
 			throws IOException, InterruptedException {
 		// ほんとは末尾の","を消したいけど...
-		mos.write("pasta", nullWritable, new Text("]}"));
-		mos.write("curry", nullWritable, new Text("]}"));
-		mos.write("don", nullWritable, new Text("]}"));
-		mos.write("sushi", nullWritable, new Text("]}"));
-		mos.write("cake", nullWritable, new Text("]}"));
+		mos.write("pasta", nullWritable, new Text("{}]}"));
+		mos.write("curry", nullWritable, new Text("{}]}"));
+		mos.write("don", nullWritable, new Text("{}]}"));
+		mos.write("sushi", nullWritable, new Text("{}]}"));
+		mos.write("cake", nullWritable, new Text("{}]}"));
 		mos.close();
 		super.cleanup(context);
 	}

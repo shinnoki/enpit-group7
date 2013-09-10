@@ -1,0 +1,28 @@
+<html ng-app="recipe">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+
+		<!-- var objにデータを格納 -->
+		<script src="data.json"></script>
+
+		<script type="text/javascript">
+		<!--
+			angular.module("recipe", []);
+
+			function recipeCtrl($scope) {
+				$scope.items = obj;
+			}
+		-->
+		</script>
+
+		<link href="style.css" rel="stylesheet" type="text/css">
+	</head>
+	<body ng-controller="recipeCtrl">
+		<h1> hello world </h1>
+		<p><a href="images">Image List</a></p>
+		<div ng-repeat="item in items">
+			<img class="small" src="images/{{ item.imagePath }}.jpg" style="position: absolute; left: {{ item.jikan * 10 }}%; top: {{ item.okane * 10 }}%">
+		</div>
+		<pre>{{ items }}</pre>
+	</body>
+</html>
